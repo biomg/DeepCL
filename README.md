@@ -1,19 +1,19 @@
-# Convolutional networks with parallel structure for metastatic prostate cancer prediction
-Accurately predicting the future cancer status of cancer patients is crucial for their treatment. Numerous scientific studies indicate a strong correlation between cancer and the genetic mutations of patients. With the continuous development of genetic mutation detection technologies, discovering one's mutated genes has become increasingly accessible. Additionally, a substantial amount of somatic gene mutation data has been generated in medical and research processes. Using artificial intelligence to process this data is of paramount importance. In this study, firstly, we propose a mutation data preprocessing method for easier extraction of mutation data features. Second, we use convolutional networks with parallel structure (CNPS) to extract features of gene mutation data in different dimensions to make more accurate judgment. Finally, CNPS is highly interpretable, and by analyzing CNPS, we can extract genes that play crucial roles in metastatic prostate cancer. After training, CNPS achieves higher accuracy results on both the MPC dataset and the MSK-MET dataset.  
+# Prediction of Drug-Target Interactions Based on Deep Contrastive Learning
+During the drug discovery process, determining the binding of molecules to protein targets is one of the most expensive steps. Therefore, precise, high-throughput computational prediction of drug-target interactions (DTI) can help prioritize potential experimental screening candidates. By using projectors to preprocess drug molecules and target protein data, we can improve the accuracy of protein sequence data, enhance the performance of prediction models, and quickly identify potential drug-target interactions. In our study, we propose a deep contrastive learning (DeepCL) method to predict kinase-drug interactions. First, we integrates drug and target data into a unified dataset, simplifying the process of establishing relationships between drugs and targets. Second, we utilizes a pre-trained model to process both drug molecules and target protein data, ensuring efficient and accurate feature extraction.
+Third, the processed data is fed into a projector composed of fully connected neural networks for training, enhancing the model's ability to learn and predict interactions effectively. This method achieved competitive experimental results compared to other state-of-the-art methods on three low-coverage benchmark public datasets. Compared to other models, it demonstrated faster computational speed and improved prediction accuracy.
 # Dependency:
-Python 3.7 <br>
-Pytorch 1.12.1 <br>
+Python 3.9 <br>
+Pytorch 1.10.1 <br>
 numpy 1.18.5 <br>
 scikit-learn 0.23.2
 # Supported GPUs
-Now it supports GPUs. The code support GPUs and CPUs, it automatically check whether you server install GPU or not, it will proritize using the GPUs if there exist GPUs.
-In addition, WVDL can also be adapted to protein binding sites on DNAs and identify DNA binding speciticity of proteins.
-It supports model training, testing.
+It now supports GPUs.The code supports both GPUs and CPUs.It automatically checks if the server has a GPU installed and prioritizes the GPU if it is present.In addition, DeepCL works with protein binding sites and identifies the binding affinity of a protein target to a drug. It supports model training and testing.
+
 # Usage:
-python DCSN.py
-python data_analizyy.py
-python get_crucial_gene.py
+python train.py
+python predict.py
+
 # Contact
-Junjiang Liu:junjiang.liu@foxmail.com
+Jinlong Li: lijinlong07@foxmail.com
 # Updates:
-21/12/2022
+24/8/2024
