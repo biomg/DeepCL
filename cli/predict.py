@@ -6,7 +6,7 @@ import torch
 from torch.utils.data import DataLoader
 
 from ..featurizer import MorganFeaturizer, ProtBertFeaturizer
-from ..model.architectures import SimpleCoembeddingNoSigmoid
+from ..model.architectures import DeepCL
 from ..utils import get_logger, set_random_seed
 
 logg = get_logger()
@@ -24,8 +24,8 @@ def add_args(parser: ArgumentParser):
         "--model-path",
         type=str,
         required=False,
-        default="./models/ConPLex_v1_BindingDB.pt",
-        help="Path to the file containing the model to use for predictions. Default: ./models/ConPLex_v1_BindingDB.pt",
+        default="./models/DeepCL_BindingDB.pt",
+        help="Path to the file containing the model to use for predictions. Default: ./models/DeepCL_BindingDB.pt",
     )
     parser.add_argument(
         "--outfile",
@@ -92,7 +92,7 @@ def main(args):
 
     # Loading model
     logg.info(f"Loading model from {args.model_path}")
-    target_featurizer = ProtBertFeaturizer(
+    target_featurizer = ESM2Featurizer(
         save_dir=args.data_cache_dir, per_tok=False
     ).to(device)
     drug_featurizer = MorganFeaturizer(save_dir=args.data_cache_dir).to(device)
@@ -100,7 +100,7 @@ def main(args):
     drug_featurizer.preload(query_df["moleculeSmiles"].unique())
     target_featurizer.preload(query_df["proteinSequence"].unique())
 
-    model = SimpleCoembeddingNoSigmoid(
+    model = DeepCL(
         drug_featurizer.shape, target_featurizer.shape, 1024
     )
     model.load_state_dict(torch.load(args.model_path, map_location=device))
@@ -124,7 +124,7 @@ def main(args):
     result_df = pd.DataFrame(query_df[["moleculeID", "proteinID"]])
     result_df["Prediction"] = preds
 
-    logg.info(f"Printing ConPLex results to {args.outfile}")
+    logg.info(f"Printing DeepCL results to {args.outfile}")
     result_df.to_csv(args.outfile, sep="\t", index=False, header=False)
 
 
